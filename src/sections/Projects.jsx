@@ -162,14 +162,16 @@ export const Projects = () => {
 
         {/* CTA */}
         <div className="text-center mt-12">
-          <AnimatedBorderButton
-            onClick={() =>
-              window.open("https://github.com/Asif0718", "_blank")
-            }
-          >
-            View GitHub Profile
-            <ArrowUpRight className="w-5 h-5 ml-2" />
-          </AnimatedBorderButton>
+        <a
+  href="https://github.com/Asif0718"
+  target="_blank"
+  rel="noopener noreferrer"
+>
+  <AnimatedBorderButton>
+    View GitHub Profile
+    <ArrowUpRight className="w-5 h-5 ml-2" />
+  </AnimatedBorderButton>
+</a>
         </div>
       </div>
     </section>
