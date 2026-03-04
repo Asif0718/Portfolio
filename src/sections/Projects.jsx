@@ -32,7 +32,7 @@ const projects = [
       "TailwindCSS",
       "ShadCN",
     ],
-    link: "#",
+    link: "https://ai-resume-builder-mauve-chi.vercel.app/",
     github: "https://github.com/Asif0718/Ai-Resume-Builder",
   },
   {
