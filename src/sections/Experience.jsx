@@ -9,8 +9,8 @@ const experiences = [
     current: false,
   },
   {
-    period: "2024 — 2025",
-    role: "AI Web Application Developer",
+    period: "2025",
+    role: " AI Exam Notes Maker",
     company: "Personal Projects",
     description:
       "Developed AI-powered web applications including an AI Exam Notes Maker with Google OAuth authentication, Stripe payment integration, PDF export functionality, and interactive analytics dashboards using Recharts.",
@@ -26,22 +26,25 @@ const experiences = [
     current: false,
   },
   {
-    period: "2024",
-    role: "AI Resume Builder Developer",
+    period: "2026",
+    role: "PrepMate AI Developer",
     company: "Personal Project",
     description:
-      "Built an AI-driven resume builder with customizable templates using Strapi CMS and SQLite. Designed modern responsive UI using TailwindCSS and ShadCN with secure backend architecture.",
+      "Built and deployed an AI-powered placement assistant that analyzes resumes, generates personalized preparation guides, recommends jobs, and tracks applications. Integrated AI-driven resume analysis, PDF parsing, JWT authentication, and cloud deployment.",
     technologies: [
       "React.js",
-      "Strapi",
-      "SQLite",
+      "FastAPI",
+      "Python",
+      "MongoDB Atlas",
+      "OpenRouter AI",
+      "JWT",
       "TailwindCSS",
-      "ShadCN",
+      "Render",
     ],
-    current: false,
+    current: true,
   },
   {
-    period: "2022 — Present",
+    period: "2022 — 2026",
     role: "B.Tech Computer Science (Cyber Security)",
     company: "Sri Venkateshwara College of Engineering",
     description:

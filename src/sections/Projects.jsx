@@ -20,7 +20,25 @@ const projects = [
     github: "https://github.com/Asif0718/1.ExamNotesAI",
   },
   {
-    title: "AI Resume Builder",
+    title: "PrepMate AI - AI Placement Assistant",
+    description:
+      "An AI-powered placement preparation platform that analyzes resumes, generates personalized preparation guides, recommends relevant job opportunities, and tracks job applications. Built with React, FastAPI, MongoDB Atlas, OpenRouter AI, and JWT Authentication.",
+    image: "/projects/project5.png",
+    tags: [
+      "React.js",
+      "FastAPI",
+      "Python",
+      "MongoDB Atlas",
+      "OpenRouter AI",
+      "JWT",
+      "TailwindCSS",
+      "Render"
+    ],
+    link: "https://prep-mate-ai-frontend.vercel.app/",
+    github: "https://github.com/Asif0718/PrepMateAi-Frontend",
+  },
+  {
+    title: "AI Resume Builder (Temporarly Live Link Not Available)",
     description:
       "An AI-powered resume builder with customizable templates and smart content suggestions. Built using Strapi CMS with SQLite and designed using TailwindCSS & ShadCN for a modern responsive UI.",
     image: "/projects/project2.png",
@@ -50,23 +68,7 @@ const projects = [
     link: "#",
     github: "https://github.com/Asif0718/Shop-EZ",
   },
-  {
-    title: "AI-Powered Learning Management System (In Progress)",
-    description:
-      "A full-stack MERN Learning Management System with AI-powered course recommendations and smart content generation. Implemented secure authentication using Google OAuth and JWT, role-based access control (Admin/Instructor/Student), protected routes, course management, and progress tracking.",
-    image: "/projects/project4.png",
-    tags: [
-      "React.js",
-      "Node.js",
-      "Express.js",
-      "MongoDB",
-      "JWT",
-      "Google OAuth",
-      "MERN Stack"
-    ],
-    link: "#",
-    github: "https://github.com/Asif0718/AI_LMS",
-  },
+  
 ];
 
 export const Projects = () => {

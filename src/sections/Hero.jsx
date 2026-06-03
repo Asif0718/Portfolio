@@ -14,7 +14,11 @@ const skills = [
   "Express.js",
   "MongoDB",
   "JavaScript",
+  "Agentic AI",
+  "RAG",
+  "Langraph",
   "TailwindCSS",
+
   "ShadCN",
   "JWT",
   "Google OAuth",
@@ -25,6 +29,7 @@ const skills = [
   "Git",
   "Postman",
   "Recharts",
+  
 ];
 
 export const Hero = () => {
@@ -125,7 +130,7 @@ export const Hero = () => {
             <div className="relative max-w-md mx-auto">
               <div className="relative glass rounded-3xl p-2 glow-border">
                 <img
-                  src="/image.png"
+                  src="/photo.jpg"
                   alt="Shaik Mahammed Asif"
                   className="w-full aspect-[4/5] object-cover rounded-2xl"
                 />
@@ -141,8 +146,8 @@ export const Hero = () => {
                 </div>
 
                 {/* Projects Badge */}
-                <div className="absolute top-3 left-3 bg-background/80 backdrop-blur-md border border-border shadow-lg rounded-xl px-4 py-3">
-  <div className="text-2xl font-bold text-white">3+</div>
+                <div className="absolute top-3 left-3 bg-background/80 backdrop-blur-md border border-border shadow-lg rounded-xl px-1 py-3">
+  <div className="text-xl font-bold text-white">3+</div>
   <div className="text-xs text-white">
     Major Projects
   </div>
