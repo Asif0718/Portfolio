@@ -80,8 +80,18 @@ export const Hero = () => {
               <p className="text-base font-medium leading-tight tracking-tight sm:text-xl">{profile.name}</p>
               <p className="mt-1 text-xs text-muted sm:text-sm">{profile.place}</p>
             </div>
+            <dl className="hidden space-y-3 border-t border-line pt-4 text-sm sm:block lg:hidden xl:block">
+              <div>
+                <dt className="text-xs text-muted">Currently</dt>
+                <dd className="mt-0.5 font-medium leading-snug">Full Stack Developer Intern, Alonzo AI</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-muted">Education</dt>
+                <dd className="mt-0.5 font-medium leading-snug">B.Tech CSE, CGPA 9.16</dd>
+              </div>
+            </dl>
             <div className="flex flex-wrap gap-1.5">
-              <span className="rounded-full bg-sheet px-2.5 py-1 text-[11px] font-medium">Intern at Alonzo AI</span>
+              <span className="rounded-full bg-sheet px-2.5 py-1 text-[11px] font-medium sm:hidden">Intern at Alonzo AI</span>
               <span className="rounded-full bg-teal-soft px-2.5 py-1 text-[11px] font-medium text-teal-deep">React + FastAPI</span>
             </div>
           </Tile>
