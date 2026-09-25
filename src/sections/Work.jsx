@@ -8,20 +8,13 @@ const ProjectCard = ({ p, featured }) => {
 
   return (
     <Tag {...linkProps} className="lift group block h-full rounded-[20px] bg-card p-3 sm:p-4">
-      <div className={`relative overflow-hidden rounded-[14px] bg-sheet ${featured ? "aspect-[16/9] sm:aspect-[2/1]" : "aspect-[2/1]"}`}>
-        {p.image ? (
-          <img
-            src={p.image}
-            alt={`${p.title} screenshot`}
-            loading="lazy"
-            className="h-full w-full object-cover object-top transition-transform duration-700 ease-out-expo group-hover:scale-[1.04]"
-          />
-        ) : (
-          <div className="bg-lavender flex h-full flex-col justify-end p-6 sm:p-10">
-            <p className="text-sm text-ink/60">{p.title}</p>
-            <p className="mt-2 max-w-lg text-3xl font-medium leading-tight tracking-[-0.03em] sm:text-5xl">{p.stat}</p>
-          </div>
-        )}
+      <div className={`relative overflow-hidden rounded-[14px] bg-sheet ${featured ? "aspect-[16/9]" : "aspect-[2/1]"}`}>
+        <img
+          src={p.image}
+          alt={`${p.title} preview`}
+          loading="lazy"
+          className="h-full w-full object-cover object-top transition-transform duration-700 ease-out-expo group-hover:scale-[1.04]"
+        />
         {p.href && (
           <span className="absolute right-3 top-3 grid size-10 place-items-center rounded-full bg-card opacity-0 shadow transition duration-300 group-hover:opacity-100">
             <ArrowUpRight className="size-4" />
