@@ -15,6 +15,22 @@ const ProjectCard = ({ p, featured }) => {
           loading="lazy"
           className="h-full w-full object-cover object-top transition-transform duration-700 ease-out-expo group-hover:scale-[1.04]"
         />
+        {p.overlay && (
+          <div className="absolute inset-y-0 left-0 flex w-[55%] flex-col justify-center gap-2 p-4 sm:gap-4 sm:p-8 lg:p-12">
+            <span className="w-fit rounded-full bg-card px-2.5 py-1 text-[10px] font-medium text-teal-deep shadow-sm sm:text-xs">
+              {p.overlay.tag}
+            </span>
+            <p className="text-lg font-medium leading-[1.05] tracking-[-0.035em] sm:text-3xl lg:text-[2.6rem]">
+              {p.overlay.title.map((line) => (
+                <span key={line} className="block">{line}</span>
+              ))}
+            </p>
+            <p className="hidden max-w-xs text-sm leading-relaxed text-ink/65 sm:block">{p.overlay.body}</p>
+            <span className="hidden w-fit items-center gap-2 rounded-full bg-ink px-4 py-2 text-xs font-medium text-white sm:inline-flex">
+              Generate all <ArrowUpRight className="size-3.5" />
+            </span>
+          </div>
+        )}
         {p.href && (
           <span className="absolute right-3 top-3 grid size-10 place-items-center rounded-full bg-card opacity-0 shadow transition duration-300 group-hover:opacity-100">
             <ArrowUpRight className="size-4" />

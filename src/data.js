@@ -40,6 +40,11 @@ export const projects = [
       "Visual template editor that turns one base poster into hundreds of customized ones, with REST APIs for external apps.",
     tags: ["React.js", "FastAPI", "AWS EC2", "Amazon S3"],
     image: "/projects/editor-lab.jpg",
+    overlay: {
+      tag: "Editor Lab",
+      title: ["One template.", "Hundreds of posters."],
+      body: "Edit the design once and regenerate every poster in a single click.",
+    },
   },
   {
     title: "PrepMate AI",
