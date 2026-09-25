@@ -1,5 +1,5 @@
 import { motion, useReducedMotion } from "motion/react";
-import { ArrowRight, Github, Linkedin, Mail, Phone } from "lucide-react";
+import { ArrowDownToLine, ArrowRight, Github, Linkedin, Mail, Phone } from "lucide-react";
 import { profile, stack } from "@/data";
 import { Magnetic, MaskLines } from "@/components/motion";
 import { ease } from "@/components/timing";
@@ -53,7 +53,7 @@ export const Hero = () => {
           <p className="mt-6 max-w-md leading-relaxed text-muted">
             I build React and FastAPI products and bring LLMs into everyday workflows. Currently an intern at Alonzo AI.
           </p>
-          <div className="mt-8">
+          <div className="mt-8 flex flex-wrap items-center gap-3">
             <Magnetic>
               <a
                 href="#contact"
@@ -62,30 +62,51 @@ export const Hero = () => {
                 Contact me <ArrowRight className="size-4" />
               </a>
             </Magnetic>
+            <a
+              href={profile.resume}
+              download
+              className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-card px-6 py-3.5 text-sm font-medium transition-colors hover:border-ink/40 active:scale-[0.97]"
+            >
+              Resume <ArrowDownToLine className="size-4" />
+            </a>
           </div>
         </motion.div>
       </div>
 
-      <div className="grid grid-cols-6 gap-3">
-        <Tile i={0} className="relative col-span-3 flex aspect-square flex-col bg-card p-4 sm:p-5">
-          <p className="text-base font-medium leading-tight tracking-tight sm:text-xl">{profile.name}</p>
-          <p className="text-xs text-muted sm:text-sm">{profile.place}</p>
-          <div className="mt-3 flex flex-wrap gap-1.5">
-            <span className="rounded-full bg-sheet px-2.5 py-1 text-[11px] font-medium">Intern at Alonzo AI</span>
-            <span className="rounded-full bg-teal-soft px-2.5 py-1 text-[11px] font-medium text-teal-deep">React + FastAPI</span>
-          </div>
-          <img
-            src="/projects/project5.png"
-            alt=""
-            className="absolute -bottom-6 left-6 hidden w-[115%] sm:block max-w-none rounded-xl border border-line shadow-lg sm:left-8"
-          />
+      <div className="grid grid-cols-5 gap-3">
+        <div className="col-span-2 flex flex-col gap-3">
+          <Tile i={0} className="flex flex-1 flex-col justify-between gap-4 bg-card p-4 sm:p-5">
+            <div>
+              <p className="text-base font-medium leading-tight tracking-tight sm:text-xl">{profile.name}</p>
+              <p className="mt-1 text-xs text-muted sm:text-sm">{profile.place}</p>
+            </div>
+            <div className="flex flex-wrap gap-1.5">
+              <span className="rounded-full bg-sheet px-2.5 py-1 text-[11px] font-medium">Intern at Alonzo AI</span>
+              <span className="rounded-full bg-teal-soft px-2.5 py-1 text-[11px] font-medium text-teal-deep">React + FastAPI</span>
+            </div>
+          </Tile>
+
+          <Tile i={1} className="grid grid-cols-2 place-items-center gap-2 py-1">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target={s.href.startsWith("http") ? "_blank" : undefined}
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="grid size-12 place-items-center rounded-full bg-card shadow-[0_6px_18px_-10px_rgb(28_28_46/0.35)] transition-transform duration-300 hover:-translate-y-1 hover:scale-105 sm:size-14"
+              >
+                <s.icon className="size-5" strokeWidth={1.75} />
+              </a>
+            ))}
+          </Tile>
+        </div>
+
+        <Tile i={2} className="col-span-3 aspect-[3/4] bg-card">
+          <img src="/photo.jpg" alt={`Portrait of ${profile.name}`} className="h-full w-full object-cover" fetchPriority="high" />
         </Tile>
 
-        <Tile i={1} className="col-span-3 aspect-square bg-card">
-          <img src="/photo.jpg" alt={`Portrait of ${profile.name}`} className="h-full w-full object-cover object-top" fetchPriority="high" />
-        </Tile>
-
-        <Tile i={2} className="bg-lavender col-span-6 flex flex-col justify-between gap-5 p-5 sm:col-span-4">
+        <Tile i={3} className="bg-lavender col-span-5 flex flex-col justify-between gap-4 p-5">
           <p className="max-w-[18rem] text-sm text-ink/75">The stack behind my recent projects</p>
           <div className="overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_15%,#000_85%,transparent)]">
             <ul className="animate-marquee flex w-max items-center gap-8">
@@ -97,21 +118,6 @@ export const Hero = () => {
               ))}
             </ul>
           </div>
-        </Tile>
-
-        <Tile i={3} className="col-span-6 grid grid-cols-4 place-items-center gap-2 sm:col-span-2 sm:grid-cols-2">
-          {socials.map((s) => (
-            <a
-              key={s.label}
-              href={s.href}
-              target={s.href.startsWith("http") ? "_blank" : undefined}
-              rel="noopener noreferrer"
-              aria-label={s.label}
-              className="grid size-14 place-items-center rounded-full bg-card shadow-[0_6px_18px_-10px_rgb(28_28_46/0.35)] transition-transform duration-300 hover:-translate-y-1 hover:scale-105"
-            >
-              <s.icon className="size-5" strokeWidth={1.75} />
-            </a>
-          ))}
         </Tile>
       </div>
     </section>
