@@ -8,7 +8,7 @@ const statement =
 const stats = [
   { value: "70%", label: "faster poster workflows" },
   { value: "100s", label: "of users on Editor Lab" },
-  { value: "9.16", label: "CGPA, B.Tech CSE" },
+  { value: "4-in-1", label: "PrepMate AI: resume review, prep plan, job matches, tracking" },
 ];
 
 const Word = ({ children, progress, range }) => {
