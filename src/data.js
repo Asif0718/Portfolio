@@ -1,6 +1,7 @@
 export const profile = {
   name: "Shaik Mahammed Asif",
   role: "Full Stack Developer",
+  place: "Tirupati, India",
   email: "mahammedasifqwerty@gmail.com",
   phone: "+91 72075 25953",
   phoneHref: "tel:+917207525953",
@@ -10,97 +11,108 @@ export const profile = {
 };
 
 export const navLinks = [
-  { href: "#about", label: "About" },
   { href: "#work", label: "Work" },
+  { href: "#services", label: "Services" },
   { href: "#experience", label: "Experience" },
   { href: "#contact", label: "Contact" },
 ];
 
-export const skillGroups = [
-  { label: "Languages", items: ["Python", "JavaScript (basic)"] },
-  { label: "Frontend", items: ["React.js", "HTML", "CSS", "Tailwind CSS", "Bootstrap", "ShadCN", "Responsive UI"] },
-  { label: "Backend", items: ["FastAPI", "Node.js", "Express.js", "REST APIs"] },
-  { label: "AI", items: ["Generative AI", "RAG", "Agentic AI", "LangGraph", "LLM integration"] },
-  { label: "Databases", items: ["MongoDB", "SQL"] },
-  { label: "Cloud & tools", items: ["AWS EC2", "Amazon S3", "Vercel", "Render", "Docker", "Git", "GitHub"] },
+// Simple Icons slugs, rendered from cdn.simpleicons.org
+export const stack = [
+  { slug: "react", name: "React" },
+  { slug: "fastapi", name: "FastAPI" },
+  { slug: "python", name: "Python" },
+  { slug: "mongodb", name: "MongoDB" },
+  { slug: "nodedotjs", name: "Node.js" },
+  { slug: "tailwindcss", name: "Tailwind CSS" },
+  { slug: "docker", name: "Docker" },
+  { slug: "langchain", name: "LangChain and LangGraph" },
+  { slug: "vercel", name: "Vercel" },
+  { slug: "render", name: "Render" },
 ];
 
-export const featured = [
+export const projects = [
   {
     title: "Editor Lab",
-    kind: "Poster automation & API platform",
+    kind: "Poster automation platform",
+    year: "2026",
     summary:
-      "A visual template editor that turns one base poster into hundreds of customized ones for sports statistics and college events.",
-    points: [
-      "Bulk generation from reusable templates, about 70% faster poster workflows",
-      "FastAPI services let external apps generate posters from template JSON",
-      "Hosted on AWS EC2, generated assets stored in Amazon S3",
-    ],
-    tags: ["React.js", "FastAPI", "Python", "MongoDB", "AWS EC2", "Amazon S3"],
+      "Visual template editor that turns one base poster into hundreds of customized ones, with REST APIs for external apps.",
+    tags: ["React.js", "FastAPI", "AWS EC2", "Amazon S3"],
     image: null,
-    stat: { value: "1 → 100s", label: "One base template, hundreds of posters" },
+    stat: "1 template, hundreds of posters",
   },
   {
     title: "PrepMate AI",
     kind: "AI placement assistant",
-    summary:
-      "A career platform for resume analysis, personalized preparation guides, job recommendations and application tracking.",
-    points: [
-      "Resume PDF parsing with LLM analysis through OpenRouter",
-      "JWT authentication and a responsive React interface",
-    ],
-    tags: ["React.js", "FastAPI", "MongoDB Atlas", "OpenRouter", "JWT", "Tailwind CSS"],
+    year: "2026",
+    summary: "Resume analysis, preparation guides, job recommendations and application tracking.",
+    tags: ["FastAPI", "OpenRouter", "JWT"],
     image: "/projects/project5.png",
-    link: "https://prep-mate-ai-frontend.vercel.app/",
-    github: "https://github.com/Asif0718/PrepMateAi-Frontend",
+    href: "https://prep-mate-ai-frontend.vercel.app/",
   },
   {
     title: "AI Exam Notes",
     kind: "AI study tool",
-    summary:
-      "Generates exam-oriented notes on a credit-based model, with Google sign-in, Stripe payments and PDF export.",
-    points: ["Usage analytics dashboards built with Recharts"],
-    tags: ["React.js", "Node.js", "MongoDB", "Google OAuth", "Stripe"],
+    year: "2025",
+    summary: "Exam-oriented notes on a credit model, with Google sign-in, Stripe and PDF export.",
+    tags: ["Node.js", "Stripe", "Google OAuth"],
     image: "/projects/project1.png",
-    link: "https://examnotesaiclient-ancn.onrender.com/",
-    github: "https://github.com/Asif0718/1.ExamNotesAI",
+    href: "https://examnotesaiclient-ancn.onrender.com/",
   },
-];
-
-export const moreWork = [
   {
     title: "AI Resume Builder",
-    kind: "Strapi, SQLite, ShadCN",
+    kind: "Resume builder",
+    summary: "Customizable resume templates with AI content suggestions.",
+    tags: ["Strapi", "SQLite", "ShadCN"],
     image: "/projects/project2.png",
     href: "https://github.com/Asif0718/Ai-Resume-Builder",
   },
   {
     title: "Shop EZ",
     kind: "MERN e-commerce",
+    year: "2025",
+    summary: "Full stack store built and deployed during an internship.",
+    tags: ["React.js", "Express.js", "MongoDB"],
     image: "/projects/project3.png",
     href: "https://github.com/Asif0718/Shop-EZ",
+  },
+];
+
+export const services = [
+  {
+    icon: "layout",
+    title: "Frontend",
+    body: "Responsive React interfaces with Tailwind CSS, ShadCN and Bootstrap that stay fast on every screen.",
+  },
+  {
+    icon: "server",
+    title: "Backend & APIs",
+    body: "FastAPI and Node.js services with REST APIs, JWT auth and MongoDB or SQL storage.",
+  },
+  {
+    icon: "sparkles",
+    title: "AI integration",
+    body: "RAG pipelines, agentic workflows with LangGraph and LLM features wired into real products.",
+  },
+  {
+    icon: "cloud",
+    title: "Cloud & deployment",
+    body: "Shipping on AWS EC2 and S3, Vercel, Render and Docker, with Git-based workflows.",
   },
 ];
 
 export const experience = [
   {
     period: "July 2026 - Present",
-    current: true,
     role: "Associate Full Stack Developer Intern",
     org: "Alonzo AI",
-    points: [
-      "Own and evolve Editor Lab, a poster automation platform used by multiple colleges and hundreds of users.",
-      "Built REST APIs so external applications can generate customized posters from template JSON.",
-      "Improved sports data workflows that extract and structure statistics from record books and PDFs.",
-    ],
+    note: "Own Editor Lab, a poster automation platform used by multiple colleges and hundreds of users.",
   },
   {
     period: "2022 - 2026",
-    role: "B.Tech, Computer Science (Cyber Security)",
-    org: "Sri Venkateshwara College of Engineering, Tirupati",
-    points: [
-      "CGPA 9.16 / 10.",
-      "Coursework in data structures and algorithms, DBMS, operating systems, computer networks and OOP.",
-    ],
+    role: "B.Tech CSE (Cyber Security), CGPA 9.16",
+    org: "Sri Venkateshwara College of Engineering",
+    note: "Coursework in DSA, DBMS, operating systems, computer networks and OOP.",
   },
 ];

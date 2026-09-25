@@ -1,43 +1,41 @@
-@import "@fontsource-variable/archivo/wdth.css";
-@import "@fontsource-variable/jetbrains-mono";
+@import "@fontsource-variable/geist";
 @import "lenis/dist/lenis.css";
 @import "tailwindcss";
 
 /*
-  Monochrome system. Radius rule: surfaces 20px, interactive controls full pill.
+  Light bento system. Radius rule: sheet 32px, cards 20px, controls full pill.
 */
 @theme {
-  --color-ink: #0a0a0a;
-  --color-char: #141414;
-  --color-line: #262626;
-  --color-ash: #8f8f8f;
-  --color-bone: #ededeb;
-  --color-paper: #f4f4f2;
+  --color-page: #e6e6e9;
+  --color-sheet: #f4f4f5;
+  --color-card: #ffffff;
+  --color-ink: #1c1c1e;
+  --color-muted: #6b6b72;
+  --color-line: #e4e4e7;
+  --color-teal: #2a97ab;
+  --color-teal-soft: #dcf0f4;
+  --color-teal-deep: #176f80;
 
-  --font-sans: "Archivo Variable", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono Variable", ui-monospace, monospace;
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @layer base {
   html {
-    background: var(--color-ink);
-    color-scheme: dark;
+    background: var(--color-page);
   }
 
   body {
-    background: var(--color-ink);
-    color: var(--color-bone);
+    background: var(--color-page);
+    color: var(--color-ink);
     font-family: var(--font-sans);
-    font-stretch: 100%;
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background: var(--color-bone);
-    color: var(--color-ink);
+    background: var(--color-teal);
+    color: #fff;
   }
 
   button {
@@ -45,26 +43,22 @@
   }
 
   :focus-visible {
-    outline: 2px solid currentColor;
+    outline: 2px solid var(--color-teal);
     outline-offset: 3px;
   }
 }
 
 @layer utilities {
-  .font-display {
-    font-stretch: 125%;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    line-height: 0.88;
+  .bg-lavender {
+    background: linear-gradient(115deg, #eef0ff 0%, #d9daff 55%, #c3c1ff 100%);
   }
 
-  .font-wide {
-    font-stretch: 115%;
+  .lift {
+    transition: transform 0.5s var(--ease-out-expo), box-shadow 0.5s var(--ease-out-expo);
   }
-
-  .text-outline {
-    color: transparent;
-    -webkit-text-stroke: 1px var(--color-bone);
+  .lift:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 40px -18px rgb(28 28 46 / 0.25);
   }
 
   @keyframes marquee {
@@ -72,14 +66,16 @@
       transform: translateX(-50%);
     }
   }
-
   .animate-marquee {
-    animation: marquee 40s linear infinite;
+    animation: marquee 28s linear infinite;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .animate-marquee {
     animation: none;
+  }
+  .lift:hover {
+    transform: none;
   }
 }

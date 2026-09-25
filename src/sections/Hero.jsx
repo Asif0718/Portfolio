@@ -1,91 +1,119 @@
-import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
-import { ArrowDown, ArrowUpRight } from "lucide-react";
-import { profile } from "@/data";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowRight, Github, Linkedin, Mail, Phone } from "lucide-react";
+import { profile, stack } from "@/data";
 import { Magnetic, MaskLines } from "@/components/motion";
-import { ease, INTRO_SECONDS } from "@/components/timing";
+import { ease } from "@/components/timing";
+
+const socials = [
+  { icon: Github, label: "GitHub", href: profile.github },
+  { icon: Linkedin, label: "LinkedIn", href: profile.linkedin },
+  { icon: Mail, label: "Email", href: `mailto:${profile.email}` },
+  { icon: Phone, label: "Phone", href: profile.phoneHref },
+];
+
+const Tile = ({ i, className = "", children }) => {
+  const reduce = useReducedMotion();
+  return (
+    <motion.div
+      className={`overflow-hidden rounded-[20px] ${className}`}
+      initial={reduce ? false : { opacity: 0, y: 24, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.9, delay: 0.35 + i * 0.1, ease }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 export const Hero = () => {
-  const ref = useRef(null);
   const reduce = useReducedMotion();
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
-  const nameY = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
-  const d = reduce ? 0 : INTRO_SECONDS;
 
   return (
-    <section
-      id="top"
-      ref={ref}
-      className="mx-auto grid min-h-[100dvh] max-w-[1400px] gap-10 overflow-hidden px-5 pb-8 pt-20 md:grid-cols-12 md:gap-8 md:px-10 md:pb-10 md:pt-24"
-    >
-      <div className="order-2 flex flex-col justify-between gap-10 md:order-1 md:col-span-7">
+    <section id="top" className="grid items-center gap-12 px-3 pb-10 pt-14 sm:px-8 md:pt-20 lg:grid-cols-2 lg:gap-10 lg:px-14 lg:pb-16">
+      <div>
         <motion.p
-          className="font-mono text-xs leading-relaxed text-ash md:text-sm"
-          initial={reduce ? false : { opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: d + 0.5 }}
+          className="inline-flex items-center gap-2 rounded-full bg-teal-soft px-3 py-1.5 text-xs font-medium uppercase tracking-wide text-teal-deep"
+          initial={reduce ? false : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease }}
         >
-          Full stack developer
-          <br />
-          at Alonzo AI
+          <span className="size-1.5 rounded-full bg-teal" />
+          Open to full-time roles
         </motion.p>
 
-        <div>
-          <motion.h1
-            className="font-display text-[11.4vw] uppercase md:text-[6.6vw] 2xl:text-[92px]"
-            style={reduce ? undefined : { y: nameY }}
-          >
-            <span className="sr-only">{profile.name}</span>
-            <span aria-hidden="true">
-              <MaskLines lines={["Mahammed", "Asif"]} delay={d + 0.25} animateOnMount />
-            </span>
-          </motion.h1>
+        <h1 className="mt-6 text-[13vw] font-medium leading-[0.98] tracking-[-0.045em] sm:text-7xl lg:text-[5.4rem]">
+          <MaskLines lines={["Hi, I'm a", "full stack", "developer"]} delay={0.1} animateOnMount />
+        </h1>
 
-          <motion.div
-            className="mt-8 grid max-w-[440px] gap-6 md:mt-10"
-            initial={reduce ? false : { opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: d + 0.7, ease }}
-          >
-            <p className="text-base leading-relaxed text-bone/80 md:text-lg">
-              I build React and FastAPI products, and bring LLMs into the workflows people already use.
-            </p>
-            <div className="flex flex-wrap items-center gap-3">
-              <Magnetic>
-                <a
-                  href="#work"
-                  className="inline-flex items-center gap-2 rounded-full bg-bone px-6 py-3 text-sm font-medium text-ink transition-transform active:scale-[0.97]"
-                >
-                  View work <ArrowDown className="size-4" strokeWidth={1.75} />
-                </a>
-              </Magnetic>
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5, ease }}
+        >
+          <p className="mt-6 max-w-md leading-relaxed text-muted">
+            I build React and FastAPI products and bring LLMs into everyday workflows. Currently an intern at Alonzo AI.
+          </p>
+          <div className="mt-8">
+            <Magnetic>
               <a
-                href={profile.resume}
-                download
-                className="inline-flex items-center gap-2 rounded-full border border-bone/30 px-6 py-3 text-sm transition-colors hover:border-bone hover:bg-bone hover:text-ink"
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-white shadow-[0_10px_24px_-10px_rgb(28_28_30/0.6)] transition-transform active:scale-[0.97]"
               >
-                Resume <ArrowUpRight className="size-4" strokeWidth={1.75} />
+                Contact me <ArrowRight className="size-4" />
               </a>
-            </div>
-          </motion.div>
-        </div>
+            </Magnetic>
+          </div>
+        </motion.div>
       </div>
 
-      <motion.div
-        className="order-1 ml-auto aspect-[4/5] w-[74vw] max-w-[440px] self-start overflow-hidden rounded-[20px] md:order-2 md:col-span-5 md:max-h-[calc(100dvh-8.5rem)] md:w-full md:self-end"
-        initial={reduce ? false : { clipPath: "inset(100% 0 0 0)" }}
-        animate={{ clipPath: "inset(0% 0 0 0)" }}
-        transition={{ duration: 1.4, delay: d, ease }}
-      >
-        <motion.img
-          src="/photo.jpg"
-          alt="Portrait of Shaik Mahammed Asif"
-          className="h-full w-full scale-[1.18] object-cover object-top contrast-[1.15] grayscale"
-          style={reduce ? undefined : { y: imgY }}
-          fetchPriority="high"
-        />
-      </motion.div>
+      <div className="grid grid-cols-6 gap-3">
+        <Tile i={0} className="relative col-span-3 flex aspect-square flex-col bg-card p-4 sm:p-5">
+          <p className="text-base font-medium leading-tight tracking-tight sm:text-xl">{profile.name}</p>
+          <p className="text-xs text-muted sm:text-sm">{profile.place}</p>
+          <div className="mt-3 flex flex-wrap gap-1.5">
+            <span className="rounded-full bg-sheet px-2.5 py-1 text-[11px] font-medium">Intern at Alonzo AI</span>
+            <span className="rounded-full bg-teal-soft px-2.5 py-1 text-[11px] font-medium text-teal-deep">React + FastAPI</span>
+          </div>
+          <img
+            src="/projects/project5.png"
+            alt=""
+            className="absolute -bottom-6 left-6 hidden w-[115%] sm:block max-w-none rounded-xl border border-line shadow-lg sm:left-8"
+          />
+        </Tile>
+
+        <Tile i={1} className="col-span-3 aspect-square bg-card">
+          <img src="/photo.jpg" alt={`Portrait of ${profile.name}`} className="h-full w-full object-cover object-top" fetchPriority="high" />
+        </Tile>
+
+        <Tile i={2} className="bg-lavender col-span-6 flex flex-col justify-between gap-5 p-5 sm:col-span-4">
+          <p className="max-w-[18rem] text-sm text-ink/75">The stack behind my recent projects</p>
+          <div className="overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_15%,#000_85%,transparent)]">
+            <ul className="animate-marquee flex w-max items-center gap-8">
+              {[...stack, ...stack].map((s, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm font-medium text-ink/70">
+                  <img src={`https://cdn.simpleicons.org/${s.slug}/3a3a4a`} alt="" className="size-5" loading="lazy" />
+                  {s.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Tile>
+
+        <Tile i={3} className="col-span-6 grid grid-cols-4 place-items-center gap-2 sm:col-span-2 sm:grid-cols-2">
+          {socials.map((s) => (
+            <a
+              key={s.label}
+              href={s.href}
+              target={s.href.startsWith("http") ? "_blank" : undefined}
+              rel="noopener noreferrer"
+              aria-label={s.label}
+              className="grid size-14 place-items-center rounded-full bg-card shadow-[0_6px_18px_-10px_rgb(28_28_46/0.35)] transition-transform duration-300 hover:-translate-y-1 hover:scale-105"
+            >
+              <s.icon className="size-5" strokeWidth={1.75} />
+            </a>
+          ))}
+        </Tile>
+      </div>
     </section>
   );
 };
