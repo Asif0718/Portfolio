@@ -91,7 +91,7 @@ export const Hero = () => {
               </div>
             </dl>
             <div className="flex flex-wrap gap-1.5">
-              <span className="rounded-full bg-sheet px-2.5 py-1 text-[11px] font-medium sm:hidden">Intern at Alonzo AI</span>
+              <span className="rounded-full bg-sheet px-2.5 py-1 text-[11px] font-medium sm:hidden lg:inline xl:hidden">Intern at Alonzo AI</span>
               <span className="rounded-full bg-teal-soft px-2.5 py-1 text-[11px] font-medium text-teal-deep">React + FastAPI</span>
             </div>
           </Tile>
