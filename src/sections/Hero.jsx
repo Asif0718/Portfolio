@@ -42,7 +42,7 @@ export const Hero = () => {
         </motion.p>
 
         <h1 className="mt-6 text-[13vw] font-medium leading-[0.98] tracking-[-0.045em] sm:text-7xl lg:text-[5.4rem]">
-          <MaskLines lines={["Hi, I'm a", "full stack", "developer"]} delay={0.1} animateOnMount />
+          <MaskLines lines={["Hi, I'm a", "Full Stack", "Developer"]} delay={0.1} animateOnMount />
         </h1>
 
         <motion.div
