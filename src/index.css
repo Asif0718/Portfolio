@@ -23,11 +23,11 @@
 
 @layer base {
   html {
-    background: var(--color-page);
+    background: var(--color-sheet);
   }
 
   body {
-    background: var(--color-page);
+    background: var(--color-sheet);
     color: var(--color-ink);
     font-family: var(--font-sans);
     -webkit-font-smoothing: antialiased;

@@ -17,8 +17,8 @@ function App() {
   }, []);
 
   return (
-    <div className="px-2 py-2 sm:px-4 sm:py-4 lg:px-8 lg:py-6">
-      <div className="mx-auto max-w-[1240px] rounded-[32px] bg-sheet px-3 pb-3 shadow-[0_30px_80px_-40px_rgb(28_28_46/0.35)] sm:px-4 sm:pb-4">
+    <div className="min-h-screen bg-sheet">
+      <div className="mx-auto max-w-[1440px] px-3 pb-3 sm:px-6 sm:pb-6 lg:px-10">
         <Navbar />
         <main className="space-y-4">
           <Hero />
