@@ -8,15 +8,21 @@ const ProjectCard = ({ p, featured }) => {
 
   return (
     <Tag {...linkProps} className="lift group block h-full rounded-[20px] bg-card p-3 sm:p-4">
-      <div className={`relative overflow-hidden rounded-[14px] bg-sheet ${featured ? "aspect-[16/9]" : "aspect-[2/1]"}`}>
+      <div
+        className={`relative overflow-hidden rounded-[14px] ${p.overlay ? "bg-[#efebf9]" : "bg-sheet"} ${featured ? "aspect-[16/9]" : "aspect-[2/1]"}`}
+      >
         <img
           src={p.image}
           alt={`${p.title} preview`}
           loading="lazy"
-          className="h-full w-full object-cover object-top transition-transform duration-700 ease-out-expo group-hover:scale-[1.04]"
+          className={
+            p.overlay
+              ? "absolute right-0 top-1/2 w-[64%] -translate-y-1/2 transition-transform duration-700 ease-out-expo fade-edges group-hover:scale-[1.04]"
+              : "h-full w-full object-cover object-top transition-transform duration-700 ease-out-expo group-hover:scale-[1.04]"
+          }
         />
         {p.overlay && (
-          <div className="absolute inset-y-0 left-0 flex w-[55%] flex-col justify-center gap-2 p-4 sm:gap-4 sm:p-8 lg:p-12">
+          <div className="absolute inset-y-0 left-0 flex w-[44%] flex-col justify-center gap-2 p-4 sm:gap-4 sm:p-8 lg:p-12">
             <span className="w-fit rounded-full bg-card px-2.5 py-1 text-[10px] font-medium text-teal-deep shadow-sm sm:text-xs">
               {p.overlay.tag}
             </span>
