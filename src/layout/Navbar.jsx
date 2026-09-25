@@ -1,103 +1,74 @@
-import { Button } from "@/components/Button";
+import { useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
 import { Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
-
-const navLinks = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#experience", label: "Experience" },
-  { href: "#testimonials", label: "Achievements" }, // Updated
-  { href: "#contact", label: "Contact" }, // Added
-];
+import { navLinks, profile } from "@/data";
+import { ease } from "@/components/timing";
 
 export const Navbar = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  const handleScrollTo = (id) => {
-    const element = document.querySelector(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
-  };
+  const [open, setOpen] = useState(false);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 transition-all duration-500 ${
-        isScrolled ? "glass-strong py-3" : "bg-transparent py-5"
-      } z-50`}
-    >
-      <nav className="container mx-auto px-6 flex items-center justify-between">
-        {/* Logo */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="text-xl font-bold tracking-tight hover:text-primary"
-        >
-          SMA<span className="text-primary">.</span>
-        </button>
+    <header className="sticky top-2 z-40 pt-3 sm:top-4 sm:pt-4">
+      <nav className="flex h-16 items-center justify-between rounded-[20px] bg-card/90 px-4 shadow-[0_8px_30px_-20px_rgb(28_28_46/0.3)] backdrop-blur-md sm:px-6">
+        <a href="#top" className="flex items-center gap-2.5">
+          <span className="grid size-8 place-items-center rounded-full bg-ink text-sm font-semibold text-white">A</span>
+          <span className="text-sm font-semibold uppercase tracking-wide">Mahammed Asif</span>
+        </a>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-1">
-          <div className="glass rounded-full px-2 py-1 flex items-center gap-1">
-            {navLinks.map((link, index) => (
-              <button
-                key={index}
-                onClick={() => handleScrollTo(link.href)}
-                className="px-4 py-2 text-sm text-muted-foreground hover:text-foreground rounded-full hover:bg-surface transition-all"
-              >
-                {link.label}
-              </button>
-            ))}
-          </div>
+        <ul className="hidden items-center gap-8 text-sm text-muted md:flex">
+          {navLinks.map((l) => (
+            <li key={l.href}>
+              <a href={l.href} className="transition-colors hover:text-ink">
+                {l.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex items-center gap-2">
+          <a
+            href={profile.resume}
+            download
+            className="rounded-full bg-ink px-5 py-2.5 text-sm font-medium text-white transition-transform active:scale-[0.97]"
+          >
+            Resume
+          </a>
+          <button
+            className="grid size-10 place-items-center rounded-full bg-sheet md:hidden"
+            onClick={() => setOpen((o) => !o)}
+            aria-expanded={open}
+            aria-controls="mobile-menu"
+            aria-label={open ? "Close menu" : "Open menu"}
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </div>
-
-        {/* CTA Button */}
-        <div className="hidden md:block">
-          <Button onClick={() => handleScrollTo("#contact")} size="sm">
-            Contact Me
-          </Button>
-        </div>
-
-        {/* Mobile Menu Button */}
-        <button
-          className="md:hidden p-2 text-foreground cursor-pointer"
-          onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-        >
-          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
       </nav>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden glass-strong animate-fade-in">
-          <div className="container mx-auto px-6 py-6 flex flex-col gap-4">
-            {navLinks.map((link, index) => (
-              <button
-                key={index}
-                onClick={() => handleScrollTo(link.href)}
-                className="text-lg text-left text-muted-foreground hover:text-foreground py-2 transition-all"
-              >
-                {link.label}
-              </button>
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            id="mobile-menu"
+            className="mt-2 space-y-1 rounded-[20px] bg-card p-3 shadow-lg md:hidden"
+            initial={{ opacity: 0, y: -8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.3, ease }}
+          >
+            {navLinks.map((l) => (
+              <li key={l.href}>
+                <a
+                  href={l.href}
+                  onClick={() => setOpen(false)}
+                  className="block rounded-xl px-4 py-3 text-lg hover:bg-sheet"
+                >
+                  {l.label}
+                </a>
+              </li>
             ))}
-
-            <Button onClick={() => handleScrollTo("#contact")}>
-              Contact Me
-            </Button>
-          </div>
-        </div>
-      )}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

@@ -1,193 +1,134 @@
-import { Button } from "@/components/Button";
-import {
-  ArrowRight,
-  ChevronDown,
-  Github,
-  Linkedin,
-  Download,
-} from "lucide-react";
-import { AnimatedBorderButton } from "../components/AnimatedBorderButton";
+import { motion, useReducedMotion } from "motion/react";
+import { ArrowDownToLine, ArrowRight, Github, Linkedin, Mail, Phone } from "lucide-react";
+import { profile, stack } from "@/data";
+import { Magnetic, MaskLines } from "@/components/motion";
+import { ease } from "@/components/timing";
 
-const skills = [
-  "React.js",
-  "Node.js",
-  "Express.js",
-  "MongoDB",
-  "JavaScript",
-  "Agentic AI",
-  "RAG",
-  "Langraph",
-  "TailwindCSS",
-
-  "ShadCN",
-  "JWT",
-  "Google OAuth",
-  "Stripe",
-  "REST APIs",
-  "SQLite",
-  "Strapi",
-  "Git",
-  "Postman",
-  "Recharts",
-  
+const socials = [
+  { icon: Github, label: "GitHub", href: profile.github },
+  { icon: Linkedin, label: "LinkedIn", href: profile.linkedin },
+  { icon: Mail, label: "Email", href: `mailto:${profile.email}` },
+  { icon: Phone, label: "Phone", href: profile.phoneHref },
 ];
 
-export const Hero = () => {
+const Tile = ({ i, className = "", children }) => {
+  const reduce = useReducedMotion();
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <img
-          src="/hero-bg.jpg"
-          alt="Hero background"
-          className="w-full h-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/80 to-background" />
-      </div>
+    <motion.div
+      className={`overflow-hidden rounded-[20px] ${className}`}
+      initial={reduce ? false : { opacity: 0, y: 24, scale: 0.96 }}
+      animate={{ opacity: 1, y: 0, scale: 1 }}
+      transition={{ duration: 0.9, delay: 0.35 + i * 0.1, ease }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
-      {/* Content */}
-      <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column */}
-          <div className="space-y-8">
-            <div>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary">
-                <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                MERN Stack Developer • AI Enthusiast
-              </span>
-            </div>
+export const Hero = () => {
+  const reduce = useReducedMotion();
 
-            {/* Headline */}
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                Hi, I'm{" "}
-                <span className="text-primary glow-text">
-                  Shaik Mahammed Asif
-                </span>
-                <br />
-                Building secure & intelligent
-                <br />
-                <span className="font-serif italic font-normal text-white">
-                  full-stack applications.
-                </span>
-              </h1>
-
-              <p className="text-lg text-muted-foreground max-w-lg">
-                A Full Stack MERN Developer and Cybersecurity student passionate
-                about building AI-powered web applications with secure
-                authentication systems, payment integrations, and scalable
-                backend architectures.
-              </p>
-            </div>
-
-            {/* Buttons */}
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" onClick={() => (window.location.href = "#contact")}>
-                Contact Me <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-
-              <a
-                      href="/Asif_Resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      download
-                    >
-                      <AnimatedBorderButton>
-                        <Download className="w-5 h-5 mr-2" />
-                        Download Resume
-                      </AnimatedBorderButton>
-                    </a>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-muted-foreground">
-                Connect with me:
-              </span>
-
-              <a
-                href="https://github.com/Asif0718"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-
-              <a
-                href="https://linkedin.com/in/mahammedasiff"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column - Profile Image */}
-          <div>
-            <div className="relative max-w-md mx-auto">
-              <div className="relative glass rounded-3xl p-2 glow-border">
-                <img
-                  src="/photo.jpg"
-                  alt="Shaik Mahammed Asif"
-                  className="w-full aspect-[4/5] object-cover rounded-2xl"
-                />
-
-                {/* Availability Badge */}
-                <div className="absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-sm font-medium">
-                      Open to Opportunities
-                    </span>
-                  </div>
-                </div>
-
-                {/* Projects Badge */}
-                <div className="absolute top-3 left-3 bg-background/80 backdrop-blur-md border border-border shadow-lg rounded-xl px-1 py-3">
-  <div className="text-xl font-bold text-white">3+</div>
-  <div className="text-xs text-white">
-    Major Projects
-  </div>
-</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Skills Marquee */}
-        <div className="mt-20">
-          <p className="text-sm text-muted-foreground mb-6 text-center">
-            Technologies & Tools
-          </p>
-
-          <div className="relative overflow-hidden">
-            <div className="flex animate-marquee">
-              {[...skills, ...skills].map((skill, idx) => (
-                <div key={idx} className="flex-shrink-0 px-8 py-4">
-                  <span className="text-xl font-semibold text-muted-foreground/50 hover:text-muted-foreground transition-colors">
-                    {skill}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll Down */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-        <a
-          href="#about"
-          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+  return (
+    <section id="top" className="grid items-center gap-12 px-3 pb-10 pt-14 sm:px-8 md:pt-20 lg:grid-cols-2 lg:gap-10 lg:px-14 lg:pb-16">
+      <div>
+        <motion.p
+          className="inline-flex items-center gap-2 rounded-full bg-teal-soft px-3 py-1.5 text-xs font-medium uppercase tracking-wide text-teal-deep"
+          initial={reduce ? false : { opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease }}
         >
-          <span className="text-xs uppercase tracking-wider">
-            Scroll
-          </span>
-          <ChevronDown className="w-6 h-6 animate-bounce" />
-        </a>
+          <span className="size-1.5 rounded-full bg-teal" />
+          Open to full-time roles
+        </motion.p>
+
+        <h1 className="mt-6 text-[13vw] font-medium leading-[0.98] tracking-[-0.045em] sm:text-7xl lg:text-[5.4rem]">
+          <MaskLines lines={["Hi, I'm a", "Full Stack", "Developer"]} delay={0.1} animateOnMount />
+        </h1>
+
+        <motion.div
+          initial={reduce ? false : { opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5, ease }}
+        >
+          <p className="mt-6 max-w-md leading-relaxed text-muted">
+            I build React and FastAPI products and bring LLMs into everyday workflows. Currently an intern at Alonzo AI.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-3">
+            <Magnetic>
+              <a
+                href="#contact"
+                className="inline-flex items-center gap-2 rounded-full bg-ink px-6 py-3.5 text-sm font-medium text-white shadow-[0_10px_24px_-10px_rgb(28_28_30/0.6)] transition-transform active:scale-[0.97]"
+              >
+                Contact me <ArrowRight className="size-4" />
+              </a>
+            </Magnetic>
+            <a
+              href={profile.resume}
+              download
+              className="inline-flex items-center gap-2 rounded-full border border-ink/15 bg-card px-6 py-3.5 text-sm font-medium transition-colors hover:border-ink/40 active:scale-[0.97]"
+            >
+              Resume <ArrowDownToLine className="size-4" />
+            </a>
+          </div>
+        </motion.div>
+      </div>
+
+      <div className="grid grid-cols-5 gap-3">
+        <div className="col-span-2 flex flex-col gap-3">
+          <Tile i={0} className="flex flex-1 flex-col justify-between gap-4 bg-card p-4 sm:p-5">
+            <div>
+              <p className="text-base font-medium leading-tight tracking-tight sm:text-xl">{profile.name}</p>
+              <p className="mt-1 text-xs text-muted sm:text-sm">{profile.place}</p>
+            </div>
+            <dl className="hidden space-y-3 border-t border-line pt-4 text-sm sm:block lg:hidden xl:block">
+              <div>
+                <dt className="text-xs text-muted">Currently</dt>
+                <dd className="mt-0.5 font-medium leading-snug">Full Stack Developer Intern, Alonzo AI</dd>
+              </div>
+              <div>
+                <dt className="text-xs text-muted">Education</dt>
+                <dd className="mt-0.5 font-medium leading-snug">B.Tech CSE, CGPA 9.16</dd>
+              </div>
+            </dl>
+            <div className="flex flex-wrap gap-1.5">
+              <span className="rounded-full bg-sheet px-2.5 py-1 text-[11px] font-medium sm:hidden lg:inline xl:hidden">Intern at Alonzo AI</span>
+              <span className="rounded-full bg-teal-soft px-2.5 py-1 text-[11px] font-medium text-teal-deep">React + FastAPI</span>
+            </div>
+          </Tile>
+
+          <Tile i={1} className="grid grid-cols-2 place-items-center gap-2 py-1">
+            {socials.map((s) => (
+              <a
+                key={s.label}
+                href={s.href}
+                target={s.href.startsWith("http") ? "_blank" : undefined}
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="grid size-12 place-items-center rounded-full bg-card shadow-[0_6px_18px_-10px_rgb(28_28_46/0.35)] transition-transform duration-300 hover:-translate-y-1 hover:scale-105 sm:size-14"
+              >
+                <s.icon className="size-5" strokeWidth={1.75} />
+              </a>
+            ))}
+          </Tile>
+        </div>
+
+        <Tile i={2} className="col-span-3 aspect-[3/4] bg-card">
+          <img src="/photo.jpg" alt={`Portrait of ${profile.name}`} className="h-full w-full object-cover" fetchPriority="high" />
+        </Tile>
+
+        <Tile i={3} className="bg-lavender col-span-5 flex flex-col justify-between gap-4 p-5">
+          <p className="max-w-[18rem] text-sm text-ink/75">The stack behind my recent projects</p>
+          <div className="overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_15%,#000_85%,transparent)]">
+            <ul className="animate-marquee flex w-max items-center gap-8">
+              {[...stack, ...stack].map((s, i) => (
+                <li key={i} className="flex items-center gap-2 text-sm font-medium text-ink/70">
+                  <img src={`https://cdn.simpleicons.org/${s.slug}/3a3a4a`} alt="" className="size-5" loading="lazy" />
+                  {s.name}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Tile>
       </div>
     </section>
   );
