@@ -1,194 +1,91 @@
-import { Button } from "@/components/Button";
-import {
-  ArrowRight,
-  ChevronDown,
-  Github,
-  Linkedin,
-  Download,
-} from "lucide-react";
-import { AnimatedBorderButton } from "../components/AnimatedBorderButton";
-
-const skills = [
-  "React.js",
-  "Node.js",
-  "Express.js",
-  "MongoDB",
-  "JavaScript",
-  "Agentic AI",
-  "RAG",
-  "Langraph",
-  "TailwindCSS",
-
-  "ShadCN",
-  "JWT",
-  "Google OAuth",
-  "Stripe",
-  "REST APIs",
-  "SQLite",
-  "Strapi",
-  "Git",
-  "Postman",
-  "Recharts",
-  
-];
+import { useRef } from "react";
+import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { ArrowDown, ArrowUpRight } from "lucide-react";
+import { profile } from "@/data";
+import { Magnetic, MaskLines } from "@/components/motion";
+import { ease, INTRO_SECONDS } from "@/components/timing";
 
 export const Hero = () => {
+  const ref = useRef(null);
+  const reduce = useReducedMotion();
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
+  const imgY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const nameY = useTransform(scrollYProgress, [0, 1], ["0%", "-25%"]);
+  const d = reduce ? 0 : INTRO_SECONDS;
+
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <img
-          src="/hero-bg.jpg"
-          alt="Hero background"
-          className="w-full h-full object-cover opacity-40"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/80 to-background" />
-      </div>
-
-      {/* Content */}
-      <div className="container mx-auto px-6 pt-32 pb-20 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left Column */}
-          <div className="space-y-8">
-            <div>
-              <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-sm text-primary">
-                <span className="w-2 h-2 bg-primary rounded-full animate-pulse" />
-                MERN Stack Developer • AI Enthusiast
-              </span>
-            </div>
-
-            {/* Headline */}
-            <div className="space-y-4">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                Hi, I'm{" "}
-                <span className="text-primary glow-text">
-                  Shaik Mahammed Asif
-                </span>
-                <br />
-                Building secure & intelligent
-                <br />
-                <span className="font-serif italic font-normal text-white">
-                  full-stack applications.
-                </span>
-              </h1>
-
-              <p className="text-lg text-muted-foreground max-w-lg">
-                A Full Stack MERN Developer and Cybersecurity student passionate
-                about building AI-powered web applications with secure
-                authentication systems, payment integrations, and scalable
-                backend architectures.
-              </p>
-            </div>
-
-            {/* Buttons */}
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" onClick={() => (window.location.href = "#contact")}>
-                Contact Me <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-
-              <a
-                      href="/Asif_Resume.pdf"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      download
-                    >
-                      <AnimatedBorderButton>
-                        <Download className="w-5 h-5 mr-2" />
-                        Download Resume
-                      </AnimatedBorderButton>
-                    </a>
-            </div>
-
-            {/* Social Links */}
-            <div className="flex items-center gap-4">
-              <span className="text-sm text-muted-foreground">
-                Connect with me:
-              </span>
-
-              <a
-                href="https://github.com/Asif0718"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
-              >
-                <Github className="w-5 h-5" />
-              </a>
-
-              <a
-                href="https://linkedin.com/in/mahammedasiff"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="p-2 rounded-full glass hover:bg-primary/10 hover:text-primary transition-all duration-300"
-              >
-                <Linkedin className="w-5 h-5" />
-              </a>
-            </div>
-          </div>
-
-          {/* Right Column - Profile Image */}
-          <div>
-            <div className="relative max-w-md mx-auto">
-              <div className="relative glass rounded-3xl p-2 glow-border">
-                <img
-                  src="/photo.jpg"
-                  alt="Shaik Mahammed Asif"
-                  className="w-full aspect-[4/5] object-cover rounded-2xl"
-                />
-
-                {/* Availability Badge */}
-                <div className="absolute -bottom-4 -right-4 glass rounded-xl px-4 py-3">
-                  <div className="flex items-center gap-3">
-                    <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse" />
-                    <span className="text-sm font-medium">
-                      Open to Opportunities
-                    </span>
-                  </div>
-                </div>
-
-                {/* Projects Badge */}
-                <div className="absolute top-3 left-3 bg-background/80 backdrop-blur-md border border-border shadow-lg rounded-xl px-1 py-3">
-  <div className="text-xl font-bold text-white">3+</div>
-  <div className="text-xs text-white">
-    Major Projects
-  </div>
-</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Skills Marquee */}
-        <div className="mt-20">
-          <p className="text-sm text-muted-foreground mb-6 text-center">
-            Technologies & Tools
-          </p>
-
-          <div className="relative overflow-hidden">
-            <div className="flex animate-marquee">
-              {[...skills, ...skills].map((skill, idx) => (
-                <div key={idx} className="flex-shrink-0 px-8 py-4">
-                  <span className="text-xl font-semibold text-muted-foreground/50 hover:text-muted-foreground transition-colors">
-                    {skill}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Scroll Down */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
-        <a
-          href="#about"
-          className="flex flex-col items-center gap-2 text-muted-foreground hover:text-primary transition-colors"
+    <section
+      id="top"
+      ref={ref}
+      className="mx-auto grid min-h-[100dvh] max-w-[1400px] gap-10 overflow-hidden px-5 pb-8 pt-20 md:grid-cols-12 md:gap-8 md:px-10 md:pb-10 md:pt-24"
+    >
+      <div className="order-2 flex flex-col justify-between gap-10 md:order-1 md:col-span-7">
+        <motion.p
+          className="font-mono text-xs leading-relaxed text-ash md:text-sm"
+          initial={reduce ? false : { opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: d + 0.5 }}
         >
-          <span className="text-xs uppercase tracking-wider">
-            Scroll
-          </span>
-          <ChevronDown className="w-6 h-6 animate-bounce" />
-        </a>
+          Full stack developer
+          <br />
+          at Alonzo AI
+        </motion.p>
+
+        <div>
+          <motion.h1
+            className="font-display text-[11.4vw] uppercase md:text-[6.6vw] 2xl:text-[92px]"
+            style={reduce ? undefined : { y: nameY }}
+          >
+            <span className="sr-only">{profile.name}</span>
+            <span aria-hidden="true">
+              <MaskLines lines={["Mahammed", "Asif"]} delay={d + 0.25} animateOnMount />
+            </span>
+          </motion.h1>
+
+          <motion.div
+            className="mt-8 grid max-w-[440px] gap-6 md:mt-10"
+            initial={reduce ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: d + 0.7, ease }}
+          >
+            <p className="text-base leading-relaxed text-bone/80 md:text-lg">
+              I build React and FastAPI products, and bring LLMs into the workflows people already use.
+            </p>
+            <div className="flex flex-wrap items-center gap-3">
+              <Magnetic>
+                <a
+                  href="#work"
+                  className="inline-flex items-center gap-2 rounded-full bg-bone px-6 py-3 text-sm font-medium text-ink transition-transform active:scale-[0.97]"
+                >
+                  View work <ArrowDown className="size-4" strokeWidth={1.75} />
+                </a>
+              </Magnetic>
+              <a
+                href={profile.resume}
+                download
+                className="inline-flex items-center gap-2 rounded-full border border-bone/30 px-6 py-3 text-sm transition-colors hover:border-bone hover:bg-bone hover:text-ink"
+              >
+                Resume <ArrowUpRight className="size-4" strokeWidth={1.75} />
+              </a>
+            </div>
+          </motion.div>
+        </div>
       </div>
+
+      <motion.div
+        className="order-1 ml-auto aspect-[4/5] w-[74vw] max-w-[440px] self-start overflow-hidden rounded-[20px] md:order-2 md:col-span-5 md:max-h-[calc(100dvh-8.5rem)] md:w-full md:self-end"
+        initial={reduce ? false : { clipPath: "inset(100% 0 0 0)" }}
+        animate={{ clipPath: "inset(0% 0 0 0)" }}
+        transition={{ duration: 1.4, delay: d, ease }}
+      >
+        <motion.img
+          src="/photo.jpg"
+          alt="Portrait of Shaik Mahammed Asif"
+          className="h-full w-full scale-[1.18] object-cover object-top contrast-[1.15] grayscale"
+          style={reduce ? undefined : { y: imgY }}
+          fetchPriority="high"
+        />
+      </motion.div>
     </section>
   );
 };

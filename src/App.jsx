@@ -1,26 +1,35 @@
+import { useEffect } from "react";
+import Lenis from "lenis";
 import { Navbar } from "@/layout/Navbar";
+import { Intro } from "@/components/Intro";
 import { Hero } from "@/sections/Hero";
 import { About } from "@/sections/About";
-import { Projects } from "@/sections/Projects";
+import { Work } from "@/sections/Work";
+import { Skills } from "@/sections/Skills";
 import { Experience } from "@/sections/Experience";
-import { Testimonials } from "@/sections/Testimonials";
 import { Contact } from "@/sections/Contact";
-import { Footer } from "./layout/Footer";
 
 function App() {
+  useEffect(() => {
+    if (location.hash) document.querySelector(location.hash)?.scrollIntoView();
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const lenis = new Lenis({ autoRaf: true, anchors: true, lerp: 0.09 });
+    return () => lenis.destroy();
+  }, []);
+
   return (
-    <div className="min-h-screen overflow-x-hidden">
+    <>
+      <Intro />
       <Navbar />
       <main>
         <Hero />
         <About />
-        <Projects />
+        <Work />
+        <Skills />
         <Experience />
-        <Testimonials />
         <Contact />
       </main>
-      <Footer />
-    </div>
+    </>
   );
 }
 

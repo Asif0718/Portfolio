@@ -1,217 +1,123 @@
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  CheckCircle,
-  AlertCircle,
-} from "lucide-react";
-import { Button } from "@/components/Button";
 import { useState } from "react";
 import emailjs from "@emailjs/browser";
+import { AlertCircle, ArrowUpRight, CheckCircle } from "lucide-react";
+import { profile } from "@/data";
+import { Magnetic, MaskLines, Reveal } from "@/components/motion";
 
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "mahammedasifqwerty@gmail.com",
-    href: "mailto:mahammedasifqwerty@gmail.com",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+91 0000000000",
-    href: "tel:+91000000000",
-  },
-  {
-    icon: MapPin,
-    label: "Location",
-    value: "Andhra Pradesh, India",
-    href: "#",
-  },
+const fields = [
+  { id: "name", label: "Name", type: "text", autoComplete: "name" },
+  { id: "email", label: "Email", type: "email", autoComplete: "email" },
 ];
 
-export const Contact = () => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+const inputClass =
+  "w-full border-b border-ink/25 bg-transparent py-3 text-base text-ink outline-none transition-colors focus:border-ink";
 
-  const [isLoading, setIsLoading] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState({
-    type: null,
-    message: "",
-  });
+export const Contact = () => {
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [sending, setSending] = useState(false);
+  const [status, setStatus] = useState(null);
+
+  const update = (e) => setForm({ ...form, [e.target.id]: e.target.value });
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setIsLoading(true);
-    setSubmitStatus({ type: null, message: "" });
-
+    setSending(true);
+    setStatus(null);
     try {
-      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-      const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-      if (!serviceId || !templateId || !publicKey) {
-        throw new Error("EmailJS environment variables are missing.");
-      }
-
-      await emailjs.send(
-        serviceId,
-        templateId,
-        {
-          name: formData.name,
-          email: formData.email,
-          message: formData.message,
-        },
-        publicKey
-      );
-
-      setSubmitStatus({
-        type: "success",
-        message: "Message sent successfully! I will get back to you soon.",
-      });
-
-      setFormData({ name: "", email: "", message: "" });
-
+      const { VITE_EMAILJS_SERVICE_ID: s, VITE_EMAILJS_TEMPLATE_ID: t, VITE_EMAILJS_PUBLIC_KEY: k } = import.meta.env;
+      if (!s || !t || !k) throw new Error("The contact form isn't configured yet. Email me directly instead.");
+      await emailjs.send(s, t, form, k);
+      setStatus({ ok: true, text: "Message sent. I'll reply within a couple of days." });
+      setForm({ name: "", email: "", message: "" });
     } catch (err) {
-      console.error("EmailJS error:", err);
-
-      setSubmitStatus({
-        type: "error",
-        message:
-          err?.text || "Failed to send message. Please try again later.",
-      });
+      setStatus({ ok: false, text: err?.text || err?.message || "Message not sent. Try again or email me directly." });
     } finally {
-      setIsLoading(false);
+      setSending(false);
     }
   };
 
   return (
-    <section id="contact" className="py-32 relative overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10">
+    <section id="contact" className="bg-paper text-ink">
+      <div className="mx-auto max-w-[1400px] px-5 pb-10 pt-28 md:px-10 md:pt-40">
+        <h2 className="font-display text-[11.5vw] uppercase md:text-[10.5vw] 2xl:text-[148px]">
+          <MaskLines lines={["Let's build", "something"]} />
+        </h2>
 
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-secondary-foreground">
-            Let's build{" "}
-            <span className="font-serif italic font-normal text-white">
-              something great.
-            </span>
-          </h2>
-        </div>
-
-        <div className="grid lg:grid-cols-2 gap-12 max-w-5xl mx-auto">
-
-          {/* Form */}
-          <div className="glass p-8 rounded-3xl border border-primary/30">
-            <form className="space-y-6" onSubmit={handleSubmit}>
-
-              {/* Name */}
+        <div className="mt-16 grid gap-16 md:mt-24 md:grid-cols-12">
+          <Reveal className="space-y-10 md:col-span-5">
+            <Magnetic strength={0.15}>
+              <a
+                href={`mailto:${profile.email}`}
+                className="font-wide group inline-flex items-center gap-3 break-all text-[17px] font-semibold tracking-tight sm:text-xl md:text-2xl"
+              >
+                {profile.email}
+                <ArrowUpRight className="size-6 shrink-0 transition-transform duration-500 ease-out-expo group-hover:rotate-45" strokeWidth={1.5} />
+              </a>
+            </Magnetic>
+            <dl className="grid grid-cols-2 gap-6 text-sm">
               <div>
-                <label htmlFor="name" className="block text-sm font-medium mb-2">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  required
-                  value={formData.name}
-                  onChange={(e) =>
-                    setFormData({ ...formData, name: e.target.value })
-                  }
-                  className="w-full px-4 py-3 bg-surface rounded-xl border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                />
+                <dt className="text-ink/55">Phone</dt>
+                <dd className="mt-1">
+                  <a href={profile.phoneHref} className="hover:underline">{profile.phone}</a>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-ink/55">Languages</dt>
+                <dd className="mt-1">English, Hindi, Telugu</dd>
+              </div>
+              <div>
+                <dt className="text-ink/55">GitHub</dt>
+                <dd className="mt-1">
+                  <a href={profile.github} target="_blank" rel="noopener noreferrer" className="hover:underline">Asif0718</a>
+                </dd>
+              </div>
+              <div>
+                <dt className="text-ink/55">LinkedIn</dt>
+                <dd className="mt-1">
+                  <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="hover:underline">mahammedasiff</a>
+                </dd>
+              </div>
+            </dl>
+          </Reveal>
+
+          <Reveal delay={0.1} className="md:col-span-6 md:col-start-7">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid gap-8 sm:grid-cols-2">
+                {fields.map((f) => (
+                  <div key={f.id} className="grid gap-2">
+                    <label htmlFor={f.id} className="text-sm text-ink/60">{f.label}</label>
+                    <input id={f.id} type={f.type} autoComplete={f.autoComplete} required value={form[f.id]} onChange={update} className={inputClass} />
+                  </div>
+                ))}
+              </div>
+              <div className="grid gap-2">
+                <label htmlFor="message" className="text-sm text-ink/60">Message</label>
+                <textarea id="message" rows={4} required value={form.message} onChange={update} className={`${inputClass} resize-none`} />
               </div>
 
-              {/* Email */}
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium mb-2">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  value={formData.email}
-                  onChange={(e) =>
-                    setFormData({ ...formData, email: e.target.value })
-                  }
-                  className="w-full px-4 py-3 bg-surface rounded-xl border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                />
-              </div>
-
-              {/* Message */}
-              <div>
-                <label htmlFor="message" className="block text-sm font-medium mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  rows={5}
-                  required
-                  value={formData.message}
-                  onChange={(e) =>
-                    setFormData({ ...formData, message: e.target.value })
-                  }
-                  className="w-full px-4 py-3 bg-surface rounded-xl border border-border focus:border-primary focus:ring-1 focus:ring-primary outline-none resize-none"
-                />
-              </div>
-
-              <Button type="submit" size="lg" disabled={isLoading} className="w-full">
-                {isLoading ? "Sending..." : "Send Message"}
-              </Button>
-
-              {submitStatus.type && (
-                <div
-                  className={`flex items-center gap-3 p-4 rounded-xl ${
-                    submitStatus.type === "success"
-                      ? "bg-green-500/10 text-green-400"
-                      : "bg-red-500/10 text-red-400"
-                  }`}
+              <div className="flex flex-wrap items-center gap-6">
+                <button
+                  type="submit"
+                  disabled={sending}
+                  className="rounded-full bg-ink px-8 py-4 text-sm font-medium text-paper transition-transform active:scale-[0.97] disabled:opacity-60"
                 >
-                  {submitStatus.type === "success" ? (
-                    <CheckCircle className="w-5 h-5" />
-                  ) : (
-                    <AlertCircle className="w-5 h-5" />
-                  )}
-                  <p className="text-sm">{submitStatus.message}</p>
-                </div>
-              )}
+                  {sending ? "Sending..." : "Send message"}
+                </button>
+                {status && (
+                  <p role="status" className={`flex items-center gap-2 text-sm ${status.ok ? "text-ink" : "text-[#a3261c]"}`}>
+                    {status.ok ? <CheckCircle className="size-4" /> : <AlertCircle className="size-4" />}
+                    {status.text}
+                  </p>
+                )}
+              </div>
             </form>
-          </div>
-
-          {/* Contact Info */}
-          <div className="glass rounded-3xl p-8">
-            <h3 className="text-xl font-semibold mb-6">
-              Contact Information
-            </h3>
-
-            <div className="space-y-4">
-              {contactInfo.map((item, i) => (
-                <a
-                  key={i}
-                  href={item.href}
-                  className="flex items-center gap-4 p-4 rounded-xl hover:bg-surface transition-colors"
-                >
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center">
-                    <item.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <div>
-                    <div className="text-sm text-muted-foreground">
-                      {item.label}
-                    </div>
-                    <div className="font-medium">{item.value}</div>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-
+          </Reveal>
         </div>
+
+        <footer className="mt-28 flex flex-col justify-between gap-4 border-t border-ink/15 pt-6 text-xs text-ink/60 sm:flex-row md:mt-40">
+          <p>&copy; {new Date().getFullYear()} {profile.name}</p>
+          <a href="#top" className="hover:text-ink">Back to top</a>
+        </footer>
       </div>
     </section>
   );
