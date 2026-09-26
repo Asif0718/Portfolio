@@ -50,9 +50,9 @@ export const projects = [
     title: "PrepMate AI",
     kind: "AI placement assistant",
     year: "2026",
-    summary: "Resume analysis, preparation guides, job recommendations and application tracking.",
-    tags: ["FastAPI", "OpenRouter", "JWT"],
-    image: "/projects/project5.png",
+    summary: "7-day prep plans from your resume, AI-scored voice mock interviews and skill-based job matching.",
+    tags: ["FastAPI", "MongoDB", "GitHub Actions"],
+    image: "/projects/prepmate-ai.png",
     href: "https://prep-mate-ai-frontend.vercel.app/",
   },
   {
